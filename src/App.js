@@ -15,10 +15,28 @@ const Button = styled.button`
   border: none;
   background: none;
   color: #fff;
-  font-size: 3rem;
+  user-select: none;
   &:focus {
     outline: none;
   }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: ${props => {
+    if (props.buttonType === BUTTON_TYPES.OPERATION) {
+      return `7rem`;
+    }
+
+    return `4rem`;
+  }};
+
+  border: ${props => {
+    if (props.active) {
+      return `3px solid black`;
+    }
+  }};
+
   background-color: ${props => {
     if (props.buttonType === BUTTON_TYPES.EDIT) {
       return `#414246`;
@@ -28,6 +46,18 @@ const Button = styled.button`
       return `#5D6365`;
     }
   }};
+
+  &:active {
+    background-color: ${props => {
+      if (props.buttonType === BUTTON_TYPES.EDIT) {
+        return `#5D6365`;
+      } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
+        return `#CD7D03`;
+      } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
+        return `#A0A1A4`;
+      }
+    }};
+  }
 `;
 const Input = styled.input`
   display: block;
@@ -81,6 +111,10 @@ const NumeralButtonsContainer = styled.div`
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-column-gap: 0.15rem;
   grid-row-gap: 0.15rem;
+
+  #M {
+    grid-column-end: span 2;
+  }
 `;
 
 const OperationButtonsContainer = styled.div`
@@ -124,7 +158,7 @@ function App() {
                 }
               }}
             >
-              CLEAR
+              AC
             </Button>
 
             {((!operationMode && first.length > 0) ||
@@ -139,7 +173,7 @@ function App() {
                   return setSecond(second.substr(0, second.length - 1));
                 }}
               >
-                DELETE
+                &larr;
               </Button>
             )}
           </EditOperationButtonsContainer>
@@ -147,6 +181,7 @@ function App() {
           <NumeralButtonsContainer>
             {Object.keys(NUMERALS).map(numeral => (
               <Button
+                id={numeral}
                 key={numeral}
                 buttonType={BUTTON_TYPES.NUMERAL}
                 onClick={() => {
@@ -167,6 +202,7 @@ function App() {
             <Button
               key={opKey}
               buttonType={BUTTON_TYPES.OPERATION}
+              active={operationMode === opKey}
               onClick={() => {
                 // console.log(opKey, OPERATIONS[opKey].symbol);
 
@@ -293,7 +329,7 @@ function App() {
                 return setOperationMode(opKey);
               }}
             >
-              {OPERATIONS[opKey].symbol}
+              {OPERATIONS[opKey].htmlEntity()}
             </Button>
           ))}
         </OperationButtonsContainer>

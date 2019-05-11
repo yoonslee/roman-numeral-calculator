@@ -1,3 +1,5 @@
+import React from "react";
+
 export const OPERATIONS_KEYS = {
   ADD: "ADD",
   SUBTRACT: "SUBTRACT",
@@ -8,18 +10,23 @@ export const OPERATIONS_KEYS = {
 
 export default {
   [OPERATIONS_KEYS.ADD]: {
-    symbol: "+"
+    symbol: "+",
+    htmlEntity: () => <>&#43;</>
   },
   [OPERATIONS_KEYS.SUBTRACT]: {
-    symbol: "-"
+    symbol: "-",
+    htmlEntity: () => <>&minus;</>
   },
   [OPERATIONS_KEYS.MULTIPLY]: {
-    symbol: "*"
+    symbol: "*",
+    htmlEntity: () => <>&times;</>
   },
   [OPERATIONS_KEYS.DIVIDE]: {
-    symbol: "/"
+    symbol: "/",
+    htmlEntity: () => <>&divide;</>
   },
   [OPERATIONS_KEYS.EQUALS]: {
-    symbol: "="
+    symbol: "=",
+    htmlEntity: () => <>&#61;</>
   }
 };
