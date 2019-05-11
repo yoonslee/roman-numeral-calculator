@@ -133,7 +133,7 @@ const RootContainer = styled.div`
   display: flex;
   flex-direction: column;
   touch-action: manipulation;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 `;
 
 const RootButtonsContainer = styled.div`
