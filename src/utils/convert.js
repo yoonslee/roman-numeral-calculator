@@ -27,7 +27,7 @@ function RomanNumber(value) {
     return;
   }
   if (!value || typeof value !== "string") {
-    throw new TypeError("String or Integer value required");
+    throw new TypeError("String or integer value required");
   }
 
   this.value = 0; // intialize
@@ -38,14 +38,14 @@ function RomanNumber(value) {
     lastIndex = 0;
   while ((m = romanSymbolsRe.exec(str))) {
     if (m[0].length > 3) {
-      throw new Error("invalid roman value");
+      throw new Error("Invalid Roman value");
     }
     lastIndex += m[0].length;
     const v = m[1] ? romanToIntMap[m[1]] * m[0].length : romanToIntMap[m[0]];
 
     // ensure the value is less than the previous one
     if (v >= prev) {
-      throw new Error("invalid roman value");
+      throw new Error("Invalid Roman value");
     }
     prev = v;
     this.value += v;
@@ -55,7 +55,7 @@ function RomanNumber(value) {
     // try to parse as base10 Arabic number
     this.value = Number(str);
   } else if (lastIndex !== str.length) {
-    throw new Error("invalid roman value"); // some ivalid roman literals exist in value
+    throw new Error("Invalid Roman value"); // some ivalid roman literals exist in value
   }
 
   RomanNumber.checkValidity(this.value);
@@ -63,13 +63,13 @@ function RomanNumber(value) {
 
 RomanNumber.checkValidity = n => {
   if (isNaN(n)) {
-    throw new Error("invalid value");
+    throw new Error("Invalid value");
   }
   if (!Number.isInteger(n)) {
-    throw new Error("invalid float value");
+    throw new Error("Invalid float value");
   }
   if (n < 1 || n > 3999) {
-    throw new RangeError("invalid range value");
+    throw new RangeError("Invalid range value");
   }
 };
 
