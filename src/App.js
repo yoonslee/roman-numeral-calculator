@@ -11,7 +11,7 @@ const BUTTON_TYPES = {
   NUMERAL: "NUMERAL"
 };
 
-const breakpoints = [768, 320];
+const breakpoints = [768, 375];
 const mq = breakpoints.map(bp => `@media (max-width: ${bp}px)`);
 
 const Button = styled.button`
@@ -25,7 +25,11 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  touch-action: manipulation;
+  /* this is for operation buttons */
+  span {
+    position: relative;
+    top: -2px;
+  }
 
   position: ${props => {
     if (props.buttonType === BUTTON_TYPES.OPERATION) {
@@ -128,6 +132,8 @@ const RootContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  touch-action: manipulation;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const RootButtonsContainer = styled.div`
@@ -176,6 +182,19 @@ const OperationButtonsContainer = styled.div`
   grid-row-gap: 0.15rem;
 `;
 
+const vibrate = () => {
+  navigator.vibrate =
+    navigator.vibrate ||
+    navigator.webkitVibrate ||
+    navigator.mozVibrate ||
+    navigator.msVibrate;
+
+  if (navigator.vibrate) {
+    // vibration API supported
+    navigator.vibrate(200);
+  }
+};
+
 function App() {
   const [first, setFirst] = useState("");
   const [second, setSecond] = useState("");
@@ -196,6 +215,8 @@ function App() {
             <Button
               buttonType={BUTTON_TYPES.EDIT}
               onClick={() => {
+                vibrate();
+
                 if (!first && !second) {
                   return;
                 } else if (first && !operationMode && !second) {
@@ -217,6 +238,8 @@ function App() {
               <Button
                 buttonType={BUTTON_TYPES.EDIT}
                 onClick={() => {
+                  vibrate();
+
                   if (!operationMode) {
                     return setFirst(first.substr(0, first.length - 1));
                   }
@@ -236,9 +259,11 @@ function App() {
                 key={numeral}
                 buttonType={BUTTON_TYPES.NUMERAL}
                 onClick={() => {
-                  console.log(numeral, NUMERALS[numeral].value);
+                  vibrate();
+                  // console.log(numeral, NUMERALS[numeral].value);
 
                   if (!operationMode) return setFirst(`${first}${numeral}`);
+
                   return setSecond(`${second}${numeral}`);
                 }}
               >
@@ -255,6 +280,7 @@ function App() {
               buttonType={BUTTON_TYPES.OPERATION}
               active={operationMode === opKey}
               onClick={() => {
+                vibrate();
                 // console.log(opKey, OPERATIONS[opKey].symbol);
 
                 if (
@@ -380,7 +406,7 @@ function App() {
                 return setOperationMode(opKey);
               }}
             >
-              {OPERATIONS[opKey].htmlEntity()}
+              <span>{OPERATIONS[opKey].htmlEntity()}</span>
             </Button>
           ))}
         </OperationButtonsContainer>
