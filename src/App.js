@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 
 import NUMERALS from "./data/NUMERALS";
 import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
+import convert from "./utils/convert";
 
 const Button = styled.button``;
 const Input = styled.input``;
@@ -14,6 +15,27 @@ function App() {
 
   return (
     <div className="App">
+      <Button
+        onClick={() => {
+          setFirst("");
+          setSecond("");
+          setOperationMode();
+        }}
+      >
+        CLEAR
+      </Button>
+
+      <Button
+        onClick={() => {
+          if (!operationMode) {
+            return setFirst(first.substr(0, first.length - 1));
+          }
+
+          return setSecond(second.substr(0, second.length - 1));
+        }}
+      >
+        DELETE
+      </Button>
       {`FIRST: ${first} / SECOND: ${second} / operationMode: ${operationMode}`}
 
       {!operationMode || operationMode === OPERATIONS_KEYS.EQUALS ? (
@@ -40,9 +62,27 @@ function App() {
         <Button
           key={opKey}
           onClick={() => {
-            console.log(opKey, OPERATIONS[opKey].symbol);
+            // console.log(opKey, OPERATIONS[opKey].symbol);
 
-            if (opKey === OPERATIONS_KEYS.EQUALS) {
+            if (
+              [
+                OPERATIONS_KEYS.ADD,
+                OPERATIONS_KEYS.SUBTRACT,
+                OPERATIONS_KEYS.MULTIPLY,
+                OPERATIONS_KEYS.DIVIDE
+              ].includes(opKey)
+            ) {
+              // check to see if valid: first input has valid value
+              const {
+                isValid: isFirstIntValid,
+                message: firstIntMessage
+              } = convert(first);
+
+              // if not, stop here and alert
+              if (!isFirstIntValid) {
+                return alert(`${firstIntMessage}`);
+              }
+            } else if (opKey === OPERATIONS_KEYS.EQUALS) {
               let isThisEqualClickValid = true;
 
               // check to see if valid: current `operationMode` is not equals but is something else AND two inputs received
@@ -55,7 +95,41 @@ function App() {
               if (!isThisEqualClickValid) return;
 
               // if valid, calculate result and set it to first input, remove second input for subsequent calculation
-              setFirst(`RESULT`);
+
+              const { value: firstInt } = convert(first);
+              const {
+                value: secondInt,
+                isValid: isSecondIntValid,
+                message: secondIntMessage
+              } = convert(second);
+
+              if (!isSecondIntValid) {
+                return alert(`${secondIntMessage}`);
+              }
+
+              let resultInt;
+
+              if (operationMode === OPERATIONS_KEYS.ADD) {
+                resultInt = firstInt + secondInt;
+              } else if (operationMode === OPERATIONS_KEYS.SUBTRACT) {
+                resultInt = firstInt - secondInt;
+              } else if (operationMode === OPERATIONS_KEYS.MULTIPLY) {
+                resultInt = firstInt * secondInt;
+              } else if (operationMode === OPERATIONS_KEYS.DIVIDE) {
+                resultInt = firstInt / secondInt;
+              }
+
+              const {
+                value: result,
+                isValid: isResultValid,
+                message: resultMessage
+              } = convert(resultInt);
+
+              if (!isResultValid) {
+                return alert(`${resultMessage}`);
+              }
+
+              setFirst(result);
               setSecond("");
             }
 
