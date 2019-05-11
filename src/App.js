@@ -34,17 +34,20 @@ function App() {
         CLEAR
       </Button>
 
-      <Button
-        onClick={() => {
-          if (!operationMode) {
-            return setFirst(first.substr(0, first.length - 1));
-          }
+      {((!operationMode && first.length > 0) ||
+        (operationMode && second.length > 0)) && (
+        <Button
+          onClick={() => {
+            if (!operationMode) {
+              return setFirst(first.substr(0, first.length - 1));
+            }
 
-          return setSecond(second.substr(0, second.length - 1));
-        }}
-      >
-        DELETE
-      </Button>
+            return setSecond(second.substr(0, second.length - 1));
+          }}
+        >
+          DELETE
+        </Button>
+      )}
       {`FIRST: ${first} / SECOND: ${second} / operationMode: ${operationMode}`}
 
       {!operationMode || operationMode === OPERATIONS_KEYS.EQUALS ? (
