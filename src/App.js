@@ -17,9 +17,17 @@ function App() {
     <div className="App">
       <Button
         onClick={() => {
-          setFirst("");
-          setSecond("");
-          setOperationMode();
+          if (!first && !second) {
+            return;
+          } else if (first && !operationMode && !second) {
+            return setFirst("");
+          } else if (first && operationMode && !second) {
+            return setOperationMode();
+          } else if (first && !operationMode && second) {
+            // impossible
+          } else if (first && operationMode && second) {
+            return setSecond("");
+          }
         }}
       >
         CLEAR
