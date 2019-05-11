@@ -12,6 +12,7 @@ function App() {
   const [first, setFirst] = useState("");
   const [second, setSecond] = useState("");
   const [operationMode, setOperationMode] = useState();
+  const [previousOperation, setPreviousOperation] = useState();
 
   return (
     <div className="App">
@@ -90,7 +91,44 @@ function App() {
               if (!isFirstIntValid) {
                 return alert(`${firstIntMessage}`);
               }
+
+              setPreviousOperation();
             } else if (opKey === OPERATIONS_KEYS.EQUALS) {
+              // bypass validation if there is a `previousOperation`, so that another equal click results in a repeat of the previous operation
+
+              if (previousOperation) {
+                const {
+                  previousOperationMode,
+                  previousOperationValue
+                } = previousOperation;
+
+                const { value: firstInt } = convert(first);
+
+                let resultInt;
+
+                if (previousOperationMode === OPERATIONS_KEYS.ADD) {
+                  resultInt = firstInt + previousOperationValue;
+                } else if (previousOperationMode === OPERATIONS_KEYS.SUBTRACT) {
+                  resultInt = firstInt - previousOperationValue;
+                } else if (previousOperationMode === OPERATIONS_KEYS.MULTIPLY) {
+                  resultInt = firstInt * previousOperationValue;
+                } else if (previousOperationMode === OPERATIONS_KEYS.DIVIDE) {
+                  resultInt = firstInt / previousOperationValue;
+                }
+
+                const {
+                  value: result,
+                  isValid: isResultValid,
+                  message: resultMessage
+                } = convert(resultInt);
+
+                if (!isResultValid) {
+                  return alert(`${resultMessage}`);
+                }
+
+                setFirst(result);
+              }
+
               let isThisEqualClickValid = true;
 
               // check to see if valid: current `operationMode` is not equals but is something else AND two inputs received
@@ -136,6 +174,11 @@ function App() {
               if (!isResultValid) {
                 return alert(`${resultMessage}`);
               }
+
+              setPreviousOperation({
+                previousOperationMode: operationMode,
+                previousOperationValue: secondInt
+              });
 
               setFirst(result);
               setSecond("");
