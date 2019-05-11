@@ -11,6 +11,9 @@ const BUTTON_TYPES = {
   NUMERAL: "NUMERAL"
 };
 
+const breakpoints = [768, 320];
+const mq = breakpoints.map(bp => `@media (max-width: ${bp}px)`);
+
 const Button = styled.button`
   border: none;
   background: none;
@@ -22,6 +25,19 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  touch-action: manipulation;
+
+  position: ${props => {
+    if (props.buttonType === BUTTON_TYPES.OPERATION) {
+      return `relative`;
+    }
+  }};
+
+  top: ${props => {
+    if (props.buttonType === BUTTON_TYPES.OPERATION) {
+      return `0.05rem`;
+    }
+  }};
 
   font-size: ${props => {
     if (props.buttonType === BUTTON_TYPES.OPERATION) {
@@ -30,6 +46,26 @@ const Button = styled.button`
 
     return `4rem`;
   }};
+
+  ${mq[0]} {
+    font-size: ${props => {
+      if (props.buttonType === BUTTON_TYPES.OPERATION) {
+        return `calc(7rem / 2)`;
+      }
+
+      return `calc(4rem / 2)`;
+    }};
+  }
+
+  ${mq[1]} {
+    font-size: ${props => {
+      if (props.buttonType === BUTTON_TYPES.OPERATION) {
+        return `calc(7rem / 3)`;
+      }
+
+      return `calc(4rem / 3)`;
+    }};
+  }
 
   border: ${props => {
     if (props.active) {
@@ -47,7 +83,8 @@ const Button = styled.button`
     }
   }};
 
-  &:active {
+  &:active,
+  &:focus {
     background-color: ${props => {
       if (props.buttonType === BUTTON_TYPES.EDIT) {
         return `#5D6365`;
@@ -69,8 +106,22 @@ const Input = styled.input`
   padding: 2rem;
   padding-top: 4rem;
 
+  ${mq[0]} {
+    font-size: calc(5rem / 1);
+    padding: calc(2rem / 1);
+    padding-top: calc(4rem / 1);
+  }
+
+  ${mq[1]} {
+    font-size: calc(5rem / 1.4);
+    padding: calc(2rem / 1.4);
+    padding-top: calc(4rem / 1.4);
+  }
+
   outline: none;
   text-align: right;
+  border-radius: 0;
+  -webkit-appearance: none;
 `;
 
 const RootContainer = styled.div`
