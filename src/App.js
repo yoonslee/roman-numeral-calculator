@@ -214,6 +214,7 @@ function App() {
           <EditOperationButtonsContainer>
             <Button
               buttonType={BUTTON_TYPES.EDIT}
+              tabIndex={0}
               onClick={() => {
                 vibrate();
 
@@ -237,6 +238,7 @@ function App() {
               (operationMode && second.length > 0)) && (
               <Button
                 buttonType={BUTTON_TYPES.EDIT}
+                tabIndex={1}
                 onClick={() => {
                   vibrate();
 
@@ -253,9 +255,10 @@ function App() {
           </EditOperationButtonsContainer>
 
           <NumeralButtonsContainer>
-            {Object.keys(NUMERALS).map(numeral => (
+            {Object.keys(NUMERALS).map((numeral, index) => (
               <Button
                 id={numeral}
+                tabIndex={index + 2}
                 key={numeral}
                 buttonType={BUTTON_TYPES.NUMERAL}
                 onClick={() => {
@@ -274,8 +277,9 @@ function App() {
         </MainButtonsContainer>
 
         <OperationButtonsContainer>
-          {Object.keys(OPERATIONS).map(opKey => (
+          {Object.keys(OPERATIONS).map((opKey, index) => (
             <Button
+              tabIndex={index + 9}
               key={opKey}
               buttonType={BUTTON_TYPES.OPERATION}
               active={operationMode === opKey}
