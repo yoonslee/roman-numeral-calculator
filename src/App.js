@@ -25,11 +25,6 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* this is for operation buttons */
-  span {
-    position: relative;
-    top: -2px;
-  }
 
   position: ${props => {
     if (props.buttonType === BUTTON_TYPES.OPERATION) {
@@ -75,6 +70,8 @@ const Button = styled.button`
     if (props.active) {
       return `3px solid black`;
     }
+
+    return `3px solid transparent`;
   }};
 
   background-color: ${props => {
@@ -410,7 +407,7 @@ function App() {
                 return setOperationMode(opKey);
               }}
             >
-              <span>{OPERATIONS[opKey].htmlEntity()}</span>
+              {OPERATIONS[opKey].htmlEntity()}
             </Button>
           ))}
         </OperationButtonsContainer>
