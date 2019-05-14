@@ -11,6 +11,16 @@ const BUTTON_TYPES = {
   NUMERAL: "NUMERAL"
 };
 
+const THEMES_KEYS = {
+  CLASSIC: "CLASSIC",
+  EXPERIMENTAL: "EXPERIMENTAL"
+};
+
+const THEMES = {
+  [THEMES_KEYS.CLASSIC]: {},
+  [THEMES_KEYS.EXPERIMENTAL]: {}
+};
+
 const breakpoints = [768, 375];
 const mq = breakpoints.map(bp => `@media (max-width: ${bp}px)`);
 
@@ -179,6 +189,25 @@ const OperationButtonsContainer = styled.div`
   grid-row-gap: 0.15rem;
 `;
 
+const ThemeBar = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #fff;
+
+  button {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const ThemeButton = styled.button`
+  background-color: ${props => (props.active ? `#444` : `transparent`)};
+  color: ${props => (props.active ? `#fff` : `#444`)};
+`;
+
 const vibrate = () => {
   navigator.vibrate =
     navigator.vibrate ||
@@ -197,6 +226,7 @@ function App() {
   const [second, setSecond] = useState("");
   const [operationMode, setOperationMode] = useState();
   const [previousOperation, setPreviousOperation] = useState();
+  const [theme, setTheme] = useState(THEMES_KEYS.CLASSIC);
 
   const showBackspace =
     (!operationMode && first.length > 0) ||
@@ -204,6 +234,21 @@ function App() {
 
   return (
     <RootContainer>
+      <ThemeBar>
+        <ThemeButton
+          onClick={() => setTheme(THEMES_KEYS.CLASSIC)}
+          active={theme === THEMES_KEYS.CLASSIC}
+        >
+          Classic
+        </ThemeButton>
+        <ThemeButton
+          onClick={() => setTheme(THEMES_KEYS.EXPERIMENTAL)}
+          active={theme === THEMES_KEYS.EXPERIMENTAL}
+        >
+          Experimental
+        </ThemeButton>
+      </ThemeBar>
+
       {!operationMode || operationMode === OPERATIONS_KEYS.EQUALS ? (
         <Input value={first} readOnly />
       ) : (
