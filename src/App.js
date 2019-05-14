@@ -198,6 +198,10 @@ function App() {
   const [operationMode, setOperationMode] = useState();
   const [previousOperation, setPreviousOperation] = useState();
 
+  const showBackspace =
+    (!operationMode && first.length > 0) ||
+    (operationMode && second.length > 0);
+
   return (
     <RootContainer>
       {!operationMode || operationMode === OPERATIONS_KEYS.EQUALS ? (
@@ -231,24 +235,23 @@ function App() {
               AC
             </Button>
 
-            {((!operationMode && first.length > 0) ||
-              (operationMode && second.length > 0)) && (
-              <Button
-                buttonType={BUTTON_TYPES.EDIT}
-                tabIndex={1}
-                onClick={() => {
-                  vibrate();
+            <Button
+              buttonType={BUTTON_TYPES.EDIT}
+              tabIndex={1}
+              disabled={!showBackspace}
+              style={{ opacity: showBackspace ? 1 : 0.4 }}
+              onClick={() => {
+                vibrate();
 
-                  if (!operationMode) {
-                    return setFirst(first.substr(0, first.length - 1));
-                  }
+                if (!operationMode) {
+                  return setFirst(first.substr(0, first.length - 1));
+                }
 
-                  return setSecond(second.substr(0, second.length - 1));
-                }}
-              >
-                &larr;
-              </Button>
-            )}
+                return setSecond(second.substr(0, second.length - 1));
+              }}
+            >
+              &larr;
+            </Button>
           </EditOperationButtonsContainer>
 
           <NumeralButtonsContainer>
@@ -292,6 +295,10 @@ function App() {
                     OPERATIONS_KEYS.DIVIDE
                   ].includes(opKey)
                 ) {
+                  if (!first) {
+                    return;
+                  }
+
                   // check to see if valid: first input has valid value
                   const {
                     isValid: isFirstIntValid,
