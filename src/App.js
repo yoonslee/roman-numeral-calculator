@@ -811,24 +811,31 @@ function App() {
 
   // EXPERIMENTAL THEME
   if (theme === THEMES_KEYS.EXPERIMENTAL) {
+    const maxHeight = 300;
+    const height = width > maxHeight ? maxHeight : width;
+    const r1 = maxHeight / 2.5;
+    const r2 = maxHeight / 2.9;
+    const cx = width / 2;
+    const cy = height / 2;
+
+    const stroke = hasError
+      ? "#ffc000"
+      : !previousOperation
+      ? "white"
+      : "#00ff74";
+
     return (
       <RootContainer>
         <ExperimentalInnerContainer>
           <ExperimentalInputContainer>
-            <svg width={width} height={width}>
+            <svg width={width} height={height}>
               <circle
-                cx={width / 2}
-                cy={width / 2}
-                r={width / 3}
+                cx={cx}
+                cy={cy}
+                r={r1}
                 strokeDasharray="1,6"
                 strokeWidth={1}
-                stroke={
-                  hasError
-                    ? "#ffc000"
-                    : !previousOperation
-                    ? "white"
-                    : "#00ff74"
-                }
+                stroke={stroke}
                 fill="transparent"
               >
                 {!previousOperation && (
@@ -839,24 +846,16 @@ function App() {
                     to={10}
                     dur="4s"
                     repeatCount="indefinite"
-                    // fill="freeze"
                   />
                 )}
               </circle>
 
               <circle
-                cx={width / 2}
-                cy={width / 2}
-                r={width / 3.4}
-                // strokeDasharray="1,6"
+                cx={cx}
+                cy={cy}
+                r={r2}
                 strokeWidth={1}
-                stroke={
-                  hasError
-                    ? "#ffc000"
-                    : !previousOperation
-                    ? "white"
-                    : "#00ff74"
-                }
+                stroke={stroke}
                 fill="transparent"
                 opacity={!previousOperation ? 0.1 : 1}
               >
@@ -868,7 +867,6 @@ function App() {
                     to={0.3}
                     dur="4s"
                     repeatCount="indefinite"
-                    // fill="freeze"
                   />
                 )}
               </circle>
