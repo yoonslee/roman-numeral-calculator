@@ -404,6 +404,7 @@ function App() {
           tabIndex={0}
           onClick={() => {
             vibrate();
+            setError(false);
 
             if (!first && !second) {
               return setPreviousOperation();
