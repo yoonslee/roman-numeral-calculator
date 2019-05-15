@@ -46,7 +46,7 @@ const Button = styled.button`
 
   font-size: ${props => {
     if (props.buttonType === BUTTON_TYPES.OPERATION) {
-      return `7rem`;
+      return `4rem`;
     }
 
     return `4rem`;
@@ -55,7 +55,7 @@ const Button = styled.button`
   ${mq[0]} {
     font-size: ${props => {
       if (props.buttonType === BUTTON_TYPES.OPERATION) {
-        return `calc(7rem / 2)`;
+        return `calc(4rem / 2)`;
       }
 
       return `calc(4rem / 2)`;
@@ -65,7 +65,7 @@ const Button = styled.button`
   ${mq[1]} {
     font-size: ${props => {
       if (props.buttonType === BUTTON_TYPES.OPERATION) {
-        return `calc(7rem / 3)`;
+        return `calc(4rem / 3)`;
       }
 
       return `calc(4rem / 3)`;
