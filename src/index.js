@@ -4,6 +4,8 @@ import "./reboot.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+require("typeface-ibm-plex-mono");
+
 ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
