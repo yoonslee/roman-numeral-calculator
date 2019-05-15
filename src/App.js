@@ -269,7 +269,7 @@ const ExperimentalNumeralRow = styled.div`
 const ThemeBarContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   background-color: #fff;
 
   button {
@@ -277,6 +277,7 @@ const ThemeBarContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
   }
 `;
 
