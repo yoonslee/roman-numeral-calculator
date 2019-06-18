@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 
+import ThemeBar from "./components/ThemeBar";
+
 import NUMERALS from "./data/NUMERALS";
 import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
 import convert from "./utils/convert";
@@ -11,7 +13,6 @@ const BUTTON_TYPES = {
   OPERATION: "OPERATION",
   NUMERAL: "NUMERAL"
 };
-
 const THEMES_KEYS = {
   CLASSIC: "CLASSIC",
   EXPERIMENTAL: "EXPERIMENTAL"
@@ -264,26 +265,6 @@ const ExperimentalNumeralButtonsContainer = styled.div`
 
 const ExperimentalNumeralRow = styled.div`
   display: flex;
-`;
-
-const ThemeBarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  /* padding: 0.5rem; */
-  background-color: #fff;
-
-  button {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-  }
-`;
-
-const ThemeButton = styled.button`
-  background-color: ${props => (props.active ? `#444` : `transparent`)};
-  color: ${props => (props.active ? `#fff` : `#444`)};
 `;
 
 const ExperimentalInputContainer = styled.div`
@@ -793,23 +774,6 @@ function App() {
     }
   };
 
-  const ThemeBar = (
-    <ThemeBarContainer>
-      <ThemeButton
-        onClick={() => setTheme(THEMES_KEYS.CLASSIC)}
-        active={theme === THEMES_KEYS.CLASSIC}
-      >
-        Classic
-      </ThemeButton>
-      <ThemeButton
-        onClick={() => setTheme(THEMES_KEYS.EXPERIMENTAL)}
-        active={theme === THEMES_KEYS.EXPERIMENTAL}
-      >
-        Experimental
-      </ThemeButton>
-    </ThemeBarContainer>
-  );
-
   // EXPERIMENTAL THEME
   if (theme === THEMES_KEYS.EXPERIMENTAL) {
     const maxHeight = 300;
@@ -902,7 +866,7 @@ function App() {
               OperationButton(opKey, index)
             )}
           </ExperimentalOperationButtonsContainer>
-          {ThemeBar}
+          <ThemeBar theme={theme} setTheme={setTheme} />
         </ExperimentalInnerContainer>
       </RootContainer>
     );
@@ -937,7 +901,7 @@ function App() {
           )}
         </OperationButtonsContainer>
       </RootButtonsContainer>
-      {ThemeBar}
+      <ThemeBar theme={theme} setTheme={setTheme} />
     </RootContainer>
   );
 }
