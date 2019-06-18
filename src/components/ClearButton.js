@@ -3,7 +3,7 @@ import React from "react";
 import Button from "./Button";
 import ExperimentalButton from "./ExperimentalButton";
 
-import UserInterface from "../utils/UserInterface";
+import UI from "../utils/UI";
 
 function ClearButton({
   theme,
@@ -17,10 +17,10 @@ function ClearButton({
   setOperationMode,
   setSecond
 }) {
-  if (theme === UserInterface.THEMES_KEYS.CLASSIC) {
+  if (theme === UI.THEMES_KEYS.CLASSIC) {
     return (
       <Button
-        buttonType={UserInterface.BUTTON_TYPES.EDIT}
+        buttonType={UI.BUTTON_TYPES.EDIT}
         tabIndex={0}
         onClick={() => {
           vibrate();
@@ -42,10 +42,10 @@ function ClearButton({
         AC
       </Button>
     );
-  } else if (theme === UserInterface.THEMES_KEYS.EXPERIMENTAL) {
+  } else if (theme === UI.THEMES_KEYS.EXPERIMENTAL) {
     return (
       <ExperimentalButton
-        buttonType={UserInterface.BUTTON_TYPES.EDIT}
+        buttonType={UI.BUTTON_TYPES.EDIT}
         tabIndex={0}
         onClick={() => {
           vibrate();

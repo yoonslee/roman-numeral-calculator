@@ -3,7 +3,7 @@ import React from "react";
 import Button from "./Button";
 import ExperimentalButton from "./ExperimentalButton";
 
-import UserInterface from "../utils/UserInterface";
+import UI from "../utils/UI";
 
 function NumeralButton({
   theme,
@@ -16,12 +16,12 @@ function NumeralButton({
   setSecond,
   second
 }) {
-  if (theme === UserInterface.THEMES_KEYS.CLASSIC) {
+  if (theme === UI.THEMES_KEYS.CLASSIC) {
     return (
       <Button
         id={numeral}
         tabIndex={index + 2}
-        buttonType={UserInterface.BUTTON_TYPES.NUMERAL}
+        buttonType={UI.BUTTON_TYPES.NUMERAL}
         onClick={() => {
           vibrate();
           // console.log(numeral, NUMERALS[numeral].value);
@@ -34,13 +34,13 @@ function NumeralButton({
         {numeral}
       </Button>
     );
-  } else if (theme === UserInterface.THEMES_KEYS.EXPERIMENTAL) {
+  } else if (theme === UI.THEMES_KEYS.EXPERIMENTAL) {
     return (
       <ExperimentalButton
         id={numeral}
         tabIndex={index + 2}
         key={numeral}
-        buttonType={UserInterface.BUTTON_TYPES.NUMERAL}
+        buttonType={UI.BUTTON_TYPES.NUMERAL}
         onClick={() => {
           vibrate();
           // console.log(numeral, NUMERALS[numeral].value);

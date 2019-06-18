@@ -1,4 +1,4 @@
-class UserInterface {
+class UI {
   static BREAKPOINTS = [768, 375];
   static MEDIA_QUERIES = this.BREAKPOINTS.map(
     bp => `@media (max-width: ${bp}px)`
@@ -14,4 +14,4 @@ class UserInterface {
   };
 }
 
-export default UserInterface;
+export default UI;

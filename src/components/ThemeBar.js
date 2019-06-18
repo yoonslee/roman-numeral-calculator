@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import UserInterface from "../utils/UserInterface";
+import UI from "../utils/UI";
 
 const ThemeBarContainer = styled.div`
   display: flex;
@@ -27,14 +27,14 @@ function ThemeBar({ theme, setTheme }) {
   return (
     <ThemeBarContainer>
       <ThemeButton
-        onClick={() => setTheme(UserInterface.THEMES_KEYS.CLASSIC)}
-        active={theme === UserInterface.THEMES_KEYS.CLASSIC}
+        onClick={() => setTheme(UI.THEMES_KEYS.CLASSIC)}
+        active={theme === UI.THEMES_KEYS.CLASSIC}
       >
         Classic
       </ThemeButton>
       <ThemeButton
-        onClick={() => setTheme(UserInterface.THEMES_KEYS.EXPERIMENTAL)}
-        active={theme === UserInterface.THEMES_KEYS.EXPERIMENTAL}
+        onClick={() => setTheme(UI.THEMES_KEYS.EXPERIMENTAL)}
+        active={theme === UI.THEMES_KEYS.EXPERIMENTAL}
       >
         Experimental
       </ThemeButton>

@@ -10,7 +10,7 @@ import OperationButton from "./components/OperationButton";
 
 import NUMERALS from "./data/NUMERALS";
 import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
-import UserInterface from "./utils/UserInterface";
+import UI from "./utils/UI";
 import convert from "./utils/convert";
 import useWindowSize from "./utils/useWindowSize";
 import ExperimentalInputCircleContainer from "./components/ExperimentalInputCircleContainer";
@@ -192,11 +192,11 @@ function App() {
   const [operationMode, setOperationMode] = useState();
   const [previousOperation, setPreviousOperation] = useState();
   const [hasError, setError] = useState(false);
-  const [theme, setTheme] = useState(UserInterface.THEMES_KEYS.EXPERIMENTAL);
+  const [theme, setTheme] = useState(UI.THEMES_KEYS.EXPERIMENTAL);
   const { width } = useWindowSize();
 
   // EXPERIMENTAL THEME
-  if (theme === UserInterface.THEMES_KEYS.EXPERIMENTAL) {
+  if (theme === UI.THEMES_KEYS.EXPERIMENTAL) {
     return (
       <RootContainer>
         <ExperimentalInnerContainer>
