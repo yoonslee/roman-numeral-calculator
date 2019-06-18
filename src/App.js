@@ -7,12 +7,12 @@ import BackspaceButton from "./components/BackspaceButton";
 import Input from "./components/Input";
 import NumeralButton from "./components/NumeralButton";
 import OperationButton from "./components/OperationButton";
+import ExperimentalInputCircleContainer from "./components/ExperimentalInputCircleContainer";
 
 import NUMERALS from "./data/NUMERALS";
 import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
 import UI from "./utils/UI";
 import convert from "./utils/convert";
-import ExperimentalInputCircleContainer from "./components/ExperimentalInputCircleContainer";
 
 const RootContainer = styled.div`
   min-height: 100vh;
@@ -172,19 +172,6 @@ const ExperimentalInput = styled.input`
   font-size: 2rem;
 `;
 
-const vibrate = () => {
-  navigator.vibrate =
-    navigator.vibrate ||
-    navigator.webkitVibrate ||
-    navigator.mozVibrate ||
-    navigator.msVibrate;
-
-  if (navigator.vibrate) {
-    // vibration API supported
-    navigator.vibrate(200);
-  }
-};
-
 function App() {
   const [first, setFirst] = useState("");
   const [second, setSecond] = useState("");
@@ -215,7 +202,7 @@ function App() {
           <ExperimentalEditOperationButtonsContainer>
             <ClearButton
               theme={theme}
-              vibrate={vibrate}
+              vibrate={UI.vibrate}
               setError={setError}
               first={first}
               second={second}
@@ -229,7 +216,7 @@ function App() {
               operationMode={operationMode}
               first={first}
               second={second}
-              vibrate={vibrate}
+              vibrate={UI.vibrate}
               setFirst={setFirst}
               setSecond={setSecond}
             />
@@ -243,7 +230,7 @@ function App() {
                   theme={theme}
                   numeral={numeral}
                   index={index}
-                  vibrate={vibrate}
+                  vibrate={UI.vibrate}
                   operationMode={operationMode}
                   setFirst={setFirst}
                   first={first}
@@ -259,7 +246,7 @@ function App() {
                   theme={theme}
                   numeral={numeral}
                   index={index}
-                  vibrate={vibrate}
+                  vibrate={UI.vibrate}
                   operationMode={operationMode}
                   setFirst={setFirst}
                   first={first}
@@ -278,7 +265,7 @@ function App() {
                 index={index}
                 opKey={opKey}
                 operationMode={operationMode}
-                vibrate={vibrate}
+                vibrate={UI.vibrate}
                 first={first}
                 convert={convert}
                 setError={setError}
@@ -311,7 +298,7 @@ function App() {
           <EditOperationButtonsContainer>
             <ClearButton
               theme={theme}
-              vibrate={vibrate}
+              vibrate={UI.vibrate}
               setError={setError}
               first={first}
               second={second}
@@ -325,7 +312,7 @@ function App() {
               operationMode={operationMode}
               first={first}
               second={second}
-              vibrate={vibrate}
+              vibrate={UI.vibrate}
               setFirst={setFirst}
               setSecond={setSecond}
             />
@@ -338,7 +325,7 @@ function App() {
                 theme={theme}
                 numeral={numeral}
                 index={index}
-                vibrate={vibrate}
+                vibrate={UI.vibrate}
                 operationMode={operationMode}
                 setFirst={setFirst}
                 first={first}
@@ -357,7 +344,7 @@ function App() {
               index={index}
               opKey={opKey}
               operationMode={operationMode}
-              vibrate={vibrate}
+              vibrate={UI.vibrate}
               first={first}
               convert={convert}
               setError={setError}
