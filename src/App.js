@@ -13,6 +13,7 @@ import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
 import THEMES_KEYS from "./data/THEMES_KEYS";
 import convert from "./utils/convert";
 import useWindowSize from "./utils/useWindowSize";
+import ExperimentalInputCircleContainer from "./components/ExperimentalInputCircleContainer";
 
 const RootContainer = styled.div`
   min-height: 100vh;
@@ -196,66 +197,15 @@ function App() {
 
   // EXPERIMENTAL THEME
   if (theme === THEMES_KEYS.EXPERIMENTAL) {
-    const maxHeight = 300;
-    const height = width > maxHeight ? maxHeight : width;
-    const r1 = maxHeight / 2.5;
-    const r2 = maxHeight / 2.9;
-    const cx = width / 2;
-    const cy = height / 2;
-
-    const stroke = hasError
-      ? "#ffc000"
-      : !previousOperation
-      ? "white"
-      : "#00ff74";
-
     return (
       <RootContainer>
         <ExperimentalInnerContainer>
           <ExperimentalInputContainer>
-            <svg width={width} height={height}>
-              <circle
-                cx={cx}
-                cy={cy}
-                r={r1}
-                strokeDasharray="1,6"
-                strokeWidth={1}
-                stroke={stroke}
-                fill="transparent"
-              >
-                {!previousOperation && (
-                  <animate
-                    attributeType="XML"
-                    attributeName="stroke-width"
-                    from={1}
-                    to={10}
-                    dur="4s"
-                    repeatCount="indefinite"
-                  />
-                )}
-              </circle>
-
-              <circle
-                cx={cx}
-                cy={cy}
-                r={r2}
-                strokeWidth={1}
-                stroke={stroke}
-                fill="transparent"
-                opacity={!previousOperation ? 0.1 : 1}
-              >
-                {!previousOperation && (
-                  <animate
-                    attributeType="XML"
-                    attributeName="opacity"
-                    from={0}
-                    to={0.3}
-                    dur="4s"
-                    repeatCount="indefinite"
-                  />
-                )}
-              </circle>
-            </svg>
+            <ExperimentalInputCircleContainer
+              width={width}
+              hasError={hasError}
+              previousOperation={previousOperation}
+            />
             {!operationMode || operationMode === OPERATIONS_KEYS.EQUALS ? (
               <ExperimentalInput value={first} readOnly />
             ) : (
@@ -395,9 +345,25 @@ function App() {
         </MainButtonsContainer>
 
         <OperationButtonsContainer>
-          {Object.keys(OPERATIONS).map((opKey, index) =>
-            OperationButton(opKey, index)
-          )}
+          {Object.keys(OPERATIONS).map((opKey, index) => (
+            <OperationButton
+              key={opKey}
+              theme={theme}
+              index={index}
+              opKey={opKey}
+              operationMode={operationMode}
+              vibrate={vibrate}
+              first={first}
+              convert={convert}
+              setError={setError}
+              previousOperation={previousOperation}
+              setPreviousOperation={setPreviousOperation}
+              setOperationMode={setOperationMode}
+              setFirst={setFirst}
+              second={second}
+              setSecond={setSecond}
+            />
+          ))}
         </OperationButtonsContainer>
       </RootButtonsContainer>
       <ThemeBar theme={theme} setTheme={setTheme} />
