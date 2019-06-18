@@ -12,7 +12,6 @@ import NUMERALS from "./data/NUMERALS";
 import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
 import UI from "./utils/UI";
 import convert from "./utils/convert";
-import useWindowSize from "./utils/useWindowSize";
 import ExperimentalInputCircleContainer from "./components/ExperimentalInputCircleContainer";
 
 const RootContainer = styled.div`
@@ -193,7 +192,7 @@ function App() {
   const [previousOperation, setPreviousOperation] = useState();
   const [hasError, setError] = useState(false);
   const [theme, setTheme] = useState(UI.THEMES_KEYS.EXPERIMENTAL);
-  const { width } = useWindowSize();
+  const { width } = UI.useWindowSize();
 
   // EXPERIMENTAL THEME
   if (theme === UI.THEMES_KEYS.EXPERIMENTAL) {
@@ -241,6 +240,8 @@ function App() {
               {["I", "V", "X"].map((numeral, index) => (
                 <NumeralButton
                   key={numeral}
+                  theme={theme}
+                  numeral={numeral}
                   index={index}
                   vibrate={vibrate}
                   operationMode={operationMode}
@@ -255,6 +256,8 @@ function App() {
               {["L", "C", "D", "M"].map((numeral, index) => (
                 <NumeralButton
                   key={numeral}
+                  theme={theme}
+                  numeral={numeral}
                   index={index}
                   vibrate={vibrate}
                   operationMode={operationMode}
@@ -332,6 +335,8 @@ function App() {
             {Object.keys(NUMERALS).map((numeral, index) => (
               <NumeralButton
                 key={numeral}
+                theme={theme}
+                numeral={numeral}
                 index={index}
                 vibrate={vibrate}
                 operationMode={operationMode}
