@@ -5,6 +5,7 @@ import ThemeBar from "./components/ThemeBar";
 
 import NUMERALS from "./data/NUMERALS";
 import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
+import THEMES_KEYS from "./data/THEMES_KEYS";
 import convert from "./utils/convert";
 import useWindowSize from "./utils/useWindowSize";
 
@@ -12,10 +13,6 @@ const BUTTON_TYPES = {
   EDIT: "EDIT",
   OPERATION: "OPERATION",
   NUMERAL: "NUMERAL"
-};
-const THEMES_KEYS = {
-  CLASSIC: "CLASSIC",
-  EXPERIMENTAL: "EXPERIMENTAL"
 };
 
 const breakpoints = [768, 375];

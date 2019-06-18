@@ -1,10 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-const THEMES_KEYS = {
-  CLASSIC: "CLASSIC",
-  EXPERIMENTAL: "EXPERIMENTAL"
-};
+import THEMES_KEYS from "../data/THEMES_KEYS";
 
 const ThemeBarContainer = styled.div`
   display: flex;
