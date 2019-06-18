@@ -3,8 +3,7 @@ import React from "react";
 import Button from "./Button";
 import ExperimentalButton from "./ExperimentalButton";
 
-import THEMES_KEYS from "../data/THEMES_KEYS";
-import BUTTON_TYPES from "../data/BUTTON_TYPES";
+import UserInterface from "../utils/UserInterface";
 
 function BackspaceButton({
   theme,
@@ -19,10 +18,10 @@ function BackspaceButton({
     (!operationMode && first.length > 0) ||
     (operationMode && second.length > 0);
 
-  if (theme === THEMES_KEYS.CLASSIC) {
+  if (theme === UserInterface.THEMES_KEYS.CLASSIC) {
     return (
       <Button
-        buttonType={BUTTON_TYPES.EDIT}
+        buttonType={UserInterface.BUTTON_TYPES.EDIT}
         tabIndex={1}
         disabled={!showBackspace}
         style={{ opacity: showBackspace ? 1 : 0.4 }}
@@ -39,10 +38,10 @@ function BackspaceButton({
         &larr;
       </Button>
     );
-  } else if (theme === THEMES_KEYS.EXPERIMENTAL) {
+  } else if (theme === UserInterface.THEMES_KEYS.EXPERIMENTAL) {
     return (
       <ExperimentalButton
-        buttonType={BUTTON_TYPES.EDIT}
+        buttonType={UserInterface.BUTTON_TYPES.EDIT}
         tabIndex={1}
         disabled={!showBackspace}
         style={{ opacity: showBackspace ? 1 : 0.4 }}

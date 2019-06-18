@@ -1,16 +1,22 @@
 import styled from "@emotion/styled";
 
-import BUTTON_TYPES from "../data/BUTTON_TYPES";
+import UserInterface from "../utils/UserInterface";
 
 const ExperimentalButton = styled.button`
   background-color: ${props => {
-    if (props.active && props.buttonType === BUTTON_TYPES.OPERATION) {
+    if (
+      props.active &&
+      props.buttonType === UserInterface.BUTTON_TYPES.OPERATION
+    ) {
       return `#00ff74 !important`;
     }
   }};
 
   color: ${props => {
-    if (props.active && props.buttonType === BUTTON_TYPES.OPERATION) {
+    if (
+      props.active &&
+      props.buttonType === UserInterface.BUTTON_TYPES.OPERATION
+    ) {
       return `#131919 !important`;
     }
   }};
@@ -18,20 +24,20 @@ const ExperimentalButton = styled.button`
   &:active,
   &:focus {
     background-color: ${props => {
-      if (props.buttonType === BUTTON_TYPES.EDIT) {
+      if (props.buttonType === UserInterface.BUTTON_TYPES.EDIT) {
         return `#ffc000`;
-      } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
+      } else if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
         return `#00ff74`;
-      } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
+      } else if (props.buttonType === UserInterface.BUTTON_TYPES.NUMERAL) {
         return `#00c8ff`;
       }
     }};
     color: ${props => {
-      if (props.buttonType === BUTTON_TYPES.EDIT) {
+      if (props.buttonType === UserInterface.BUTTON_TYPES.EDIT) {
         return `#131919`;
-      } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
+      } else if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
         return `#131919`;
-      } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
+      } else if (props.buttonType === UserInterface.BUTTON_TYPES.NUMERAL) {
         return `#131919`;
       }
     }};

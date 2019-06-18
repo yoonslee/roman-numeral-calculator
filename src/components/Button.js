@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
-import BUTTON_TYPES from "../data/BUTTON_TYPES";
-import UserInterface from "../data/UserInterface";
+import UserInterface from "../utils/UserInterface";
 
 const Button = styled.button`
 border: none;
@@ -16,28 +15,28 @@ justify-content: center;
 align-items: center;
 
 position: ${props => {
-  if (props.buttonType === BUTTON_TYPES.OPERATION) {
+  if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
     return `relative`;
   }
 }};
 
 /* top: ${props => {
-  if (props.buttonType === BUTTON_TYPES.OPERATION) {
+  if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
     return `0.05rem`;
   }
 }}; */
 
 font-size: ${props => {
-  if (props.buttonType === BUTTON_TYPES.OPERATION) {
+  if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
     return `4rem`;
   }
 
   return `4rem`;
 }};
 
-${UserInterface.mq[0]} {
+${UserInterface.MEDIA_QUERIES[0]} {
   font-size: ${props => {
-    if (props.buttonType === BUTTON_TYPES.OPERATION) {
+    if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
       return `calc(4rem / 2)`;
     }
 
@@ -45,9 +44,9 @@ ${UserInterface.mq[0]} {
   }};
 }
 
-${UserInterface.mq[1]} {
+${UserInterface.MEDIA_QUERIES[1]} {
   font-size: ${props => {
-    if (props.buttonType === BUTTON_TYPES.OPERATION) {
+    if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
       return `calc(4rem / 3)`;
     }
 
@@ -64,11 +63,11 @@ border: ${props => {
 }};
 
 background-color: ${props => {
-  if (props.buttonType === BUTTON_TYPES.EDIT) {
+  if (props.buttonType === UserInterface.BUTTON_TYPES.EDIT) {
     return `#414246`;
-  } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
+  } else if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
     return `#FF9F0A`;
-  } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
+  } else if (props.buttonType === UserInterface.BUTTON_TYPES.NUMERAL) {
     return `#5D6365`;
   }
 }};
@@ -76,11 +75,11 @@ background-color: ${props => {
 &:active,
 &:focus {
   background-color: ${props => {
-    if (props.buttonType === BUTTON_TYPES.EDIT) {
+    if (props.buttonType === UserInterface.BUTTON_TYPES.EDIT) {
       return `#5D6365`;
-    } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
+    } else if (props.buttonType === UserInterface.BUTTON_TYPES.OPERATION) {
       return `#CD7D03`;
-    } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
+    } else if (props.buttonType === UserInterface.BUTTON_TYPES.NUMERAL) {
       return `#A0A1A4`;
     }
   }};

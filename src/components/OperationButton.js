@@ -3,8 +3,8 @@ import React from "react";
 import Button from "./Button";
 import ExperimentalButton from "./ExperimentalButton";
 
-import THEMES_KEYS from "../data/THEMES_KEYS";
-import BUTTON_TYPES from "../data/BUTTON_TYPES";
+import UserInterface from "../utils/UserInterface";
+
 import OPERATIONS, { OPERATIONS_KEYS } from "../data/OPERATIONS";
 
 function OperationButton({
@@ -23,11 +23,11 @@ function OperationButton({
   second,
   setSecond
 }) {
-  if (theme === THEMES_KEYS.CLASSIC) {
+  if (theme === UserInterface.THEMES_KEYS.CLASSIC) {
     return (
       <Button
         tabIndex={index + 9}
-        buttonType={BUTTON_TYPES.OPERATION}
+        buttonType={UserInterface.BUTTON_TYPES.OPERATION}
         active={operationMode === opKey}
         onClick={() => {
           vibrate();
@@ -159,11 +159,11 @@ function OperationButton({
         <span>{OPERATIONS[opKey].htmlEntity()}</span>
       </Button>
     );
-  } else if (theme === THEMES_KEYS.EXPERIMENTAL) {
+  } else if (theme === UserInterface.THEMES_KEYS.EXPERIMENTAL) {
     return (
       <ExperimentalButton
         tabIndex={index + 9}
-        buttonType={BUTTON_TYPES.OPERATION}
+        buttonType={UserInterface.BUTTON_TYPES.OPERATION}
         active={operationMode === opKey}
         onClick={() => {
           vibrate();

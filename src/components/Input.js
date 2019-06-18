@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import UserInterface from "../data/UserInterface";
+import UserInterface from "../utils/UserInterface";
 
 const Input = styled.input`
   display: block;
@@ -11,13 +11,13 @@ const Input = styled.input`
   padding: 2rem;
   padding-top: 4rem;
 
-  ${UserInterface.mq[0]} {
+  ${UserInterface.MEDIA_QUERIES[0]} {
     font-size: calc(5rem / 1);
     padding: calc(2rem / 1);
     padding-top: calc(4rem / 1);
   }
 
-  ${UserInterface.mq[1]} {
+  ${UserInterface.MEDIA_QUERIES[1]} {
     font-size: calc(5rem / 1.4);
     padding: calc(2rem / 1.4);
     padding-top: calc(4rem / 1.4);

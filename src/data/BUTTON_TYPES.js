@@ -1,7 +1,0 @@
-const BUTTON_TYPES = {
-  EDIT: "EDIT",
-  OPERATION: "OPERATION",
-  NUMERAL: "NUMERAL"
-};
-
-export default BUTTON_TYPES;
