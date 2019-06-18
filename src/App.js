@@ -2,133 +2,19 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 import ThemeBar from "./components/ThemeBar";
+import ClearButton from "./components/ClearButton";
+import BackspaceButton from "./components/BackspaceButton";
+import Button from "./components/Button";
+import ExperimentalButton from "./components/ExperimentalButton";
+import Input from "./components/Input";
+import NumeralButton from "./components/NumeralButton";
 
 import NUMERALS from "./data/NUMERALS";
 import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
 import THEMES_KEYS from "./data/THEMES_KEYS";
+import BUTTON_TYPES from "./data/BUTTON_TYPES";
 import convert from "./utils/convert";
 import useWindowSize from "./utils/useWindowSize";
-
-const BUTTON_TYPES = {
-  EDIT: "EDIT",
-  OPERATION: "OPERATION",
-  NUMERAL: "NUMERAL"
-};
-
-const breakpoints = [768, 375];
-const mq = breakpoints.map(bp => `@media (max-width: ${bp}px)`);
-
-const Button = styled.button`
-  border: none;
-  background: none;
-  color: #fff;
-  user-select: none;
-  &:focus {
-    outline: none;
-  }
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: ${props => {
-    if (props.buttonType === BUTTON_TYPES.OPERATION) {
-      return `relative`;
-    }
-  }};
-
-  /* top: ${props => {
-    if (props.buttonType === BUTTON_TYPES.OPERATION) {
-      return `0.05rem`;
-    }
-  }}; */
-
-  font-size: ${props => {
-    if (props.buttonType === BUTTON_TYPES.OPERATION) {
-      return `4rem`;
-    }
-
-    return `4rem`;
-  }};
-
-  ${mq[0]} {
-    font-size: ${props => {
-      if (props.buttonType === BUTTON_TYPES.OPERATION) {
-        return `calc(4rem / 2)`;
-      }
-
-      return `calc(4rem / 2)`;
-    }};
-  }
-
-  ${mq[1]} {
-    font-size: ${props => {
-      if (props.buttonType === BUTTON_TYPES.OPERATION) {
-        return `calc(4rem / 3)`;
-      }
-
-      return `calc(4rem / 3)`;
-    }};
-  }
-
-  border: ${props => {
-    if (props.active) {
-      return `3px solid black`;
-    }
-
-    return `3px solid transparent`;
-  }};
-
-  background-color: ${props => {
-    if (props.buttonType === BUTTON_TYPES.EDIT) {
-      return `#414246`;
-    } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
-      return `#FF9F0A`;
-    } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
-      return `#5D6365`;
-    }
-  }};
-
-  &:active,
-  &:focus {
-    background-color: ${props => {
-      if (props.buttonType === BUTTON_TYPES.EDIT) {
-        return `#5D6365`;
-      } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
-        return `#CD7D03`;
-      } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
-        return `#A0A1A4`;
-      }
-    }};
-  }
-`;
-
-const Input = styled.input`
-  display: block;
-  width: 100%;
-  background-color: #2a3131;
-  border: none;
-  color: #fff;
-  font-size: 5rem;
-  padding: 2rem;
-  padding-top: 4rem;
-
-  ${mq[0]} {
-    font-size: calc(5rem / 1);
-    padding: calc(2rem / 1);
-    padding-top: calc(4rem / 1);
-  }
-
-  ${mq[1]} {
-    font-size: calc(5rem / 1.4);
-    padding: calc(2rem / 1.4);
-    padding-top: calc(4rem / 1.4);
-  }
-
-  outline: none;
-  text-align: right;
-  border-radius: 0;
-  -webkit-appearance: none;
-`;
 
 const RootContainer = styled.div`
   min-height: 100vh;
@@ -288,42 +174,6 @@ const ExperimentalInput = styled.input`
   font-size: 2rem;
 `;
 
-const ExperimentalButton = styled.button`
-  background-color: ${props => {
-    if (props.active && props.buttonType === BUTTON_TYPES.OPERATION) {
-      return `#00ff74 !important`;
-    }
-  }};
-
-  color: ${props => {
-    if (props.active && props.buttonType === BUTTON_TYPES.OPERATION) {
-      return `#131919 !important`;
-    }
-  }};
-
-  &:active,
-  &:focus {
-    background-color: ${props => {
-      if (props.buttonType === BUTTON_TYPES.EDIT) {
-        return `#ffc000`;
-      } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
-        return `#00ff74`;
-      } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
-        return `#00c8ff`;
-      }
-    }};
-    color: ${props => {
-      if (props.buttonType === BUTTON_TYPES.EDIT) {
-        return `#131919`;
-      } else if (props.buttonType === BUTTON_TYPES.OPERATION) {
-        return `#131919`;
-      } else if (props.buttonType === BUTTON_TYPES.NUMERAL) {
-        return `#131919`;
-      }
-    }};
-  }
-`;
-
 const vibrate = () => {
   navigator.vibrate =
     navigator.vibrate ||
@@ -345,153 +195,6 @@ function App() {
   const [hasError, setError] = useState(false);
   const [theme, setTheme] = useState(THEMES_KEYS.EXPERIMENTAL);
   const { width } = useWindowSize();
-
-  const showBackspace =
-    (!operationMode && first.length > 0) ||
-    (operationMode && second.length > 0);
-
-  const ClearButton = () => {
-    if (theme === THEMES_KEYS.CLASSIC) {
-      return (
-        <Button
-          buttonType={BUTTON_TYPES.EDIT}
-          tabIndex={0}
-          onClick={() => {
-            vibrate();
-            setError(false);
-
-            if (!first && !second) {
-              return setPreviousOperation();
-            } else if (first && !operationMode && !second) {
-              return setFirst("");
-            } else if (first && operationMode && !second) {
-              return setOperationMode();
-            } else if (first && !operationMode && second) {
-              // impossible
-            } else if (first && operationMode && second) {
-              return setSecond("");
-            }
-          }}
-        >
-          AC
-        </Button>
-      );
-    } else if (theme === THEMES_KEYS.EXPERIMENTAL) {
-      return (
-        <ExperimentalButton
-          buttonType={BUTTON_TYPES.EDIT}
-          tabIndex={0}
-          onClick={() => {
-            vibrate();
-            setError(false);
-
-            if (!first && !second) {
-              return setPreviousOperation();
-            } else if (first && !operationMode && !second) {
-              return setFirst("");
-            } else if (first && operationMode && !second) {
-              return setOperationMode();
-            } else if (first && !operationMode && second) {
-              // impossible
-            } else if (first && operationMode && second) {
-              return setSecond("");
-            }
-          }}
-        >
-          AC
-        </ExperimentalButton>
-      );
-    }
-    return null;
-  };
-
-  const BackspaceButton = () => {
-    if (theme === THEMES_KEYS.CLASSIC) {
-      return (
-        <Button
-          buttonType={BUTTON_TYPES.EDIT}
-          tabIndex={1}
-          disabled={!showBackspace}
-          style={{ opacity: showBackspace ? 1 : 0.4 }}
-          onClick={() => {
-            vibrate();
-
-            if (!operationMode) {
-              return setFirst(first.substr(0, first.length - 1));
-            }
-
-            return setSecond(second.substr(0, second.length - 1));
-          }}
-        >
-          &larr;
-        </Button>
-      );
-    } else if (theme === THEMES_KEYS.EXPERIMENTAL) {
-      return (
-        <ExperimentalButton
-          buttonType={BUTTON_TYPES.EDIT}
-          tabIndex={1}
-          disabled={!showBackspace}
-          style={{ opacity: showBackspace ? 1 : 0.4 }}
-          onClick={() => {
-            vibrate();
-
-            if (!operationMode) {
-              return setFirst(first.substr(0, first.length - 1));
-            }
-
-            return setSecond(second.substr(0, second.length - 1));
-          }}
-        >
-          &larr;
-        </ExperimentalButton>
-      );
-    }
-  };
-
-  const NumeralButton = (numeral, index) => {
-    if (theme === THEMES_KEYS.CLASSIC) {
-      return (
-        <Button
-          id={numeral}
-          tabIndex={index + 2}
-          key={numeral}
-          buttonType={BUTTON_TYPES.NUMERAL}
-          onClick={() => {
-            vibrate();
-            // console.log(numeral, NUMERALS[numeral].value);
-
-            if (!operationMode) return setFirst(`${first}${numeral}`);
-
-            return setSecond(`${second}${numeral}`);
-          }}
-        >
-          {numeral}
-        </Button>
-      );
-    } else if (theme === THEMES_KEYS.EXPERIMENTAL) {
-      return (
-        <ExperimentalButton
-          id={numeral}
-          tabIndex={index + 2}
-          key={numeral}
-          buttonType={BUTTON_TYPES.NUMERAL}
-          onClick={() => {
-            vibrate();
-            // console.log(numeral, NUMERALS[numeral].value);
-
-            if (!operationMode) return setFirst(`${first}${numeral}`);
-
-            return setSecond(`${second}${numeral}`);
-          }}
-        >
-          {numeral}
-        </ExperimentalButton>
-      );
-    }
-
-    return null;
-  };
 
   const OperationButton = (opKey, index) => {
     if (theme === THEMES_KEYS.CLASSIC) {
@@ -841,20 +544,56 @@ function App() {
           </ExperimentalInputContainer>
 
           <ExperimentalEditOperationButtonsContainer>
-            {ClearButton()}
-            {BackspaceButton()}
+            <ClearButton
+              theme={theme}
+              vibrate={vibrate}
+              setError={setError}
+              first={first}
+              second={second}
+              setPreviousOperation={setPreviousOperation}
+              operationMode={operationMode}
+              setFirst={setFirst}
+              setSecond={setSecond}
+            />
+            <BackspaceButton
+              theme={theme}
+              operationMode={operationMode}
+              first={first}
+              second={second}
+              vibrate={vibrate}
+              setFirst={setFirst}
+              setSecond={setSecond}
+            />
           </ExperimentalEditOperationButtonsContainer>
 
           <ExperimentalNumeralButtonsContainer>
             <ExperimentalNumeralRow>
-              {["I", "V", "X"].map((numeral, index) =>
-                NumeralButton(numeral, index)
-              )}
+              {["I", "V", "X"].map((numeral, index) => (
+                <NumeralButton
+                  key={numeral}
+                  index={index}
+                  vibrate={vibrate}
+                  operationMode={operationMode}
+                  setFirst={setFirst}
+                  first={first}
+                  setSecond={setSecond}
+                  second={second}
+                />
+              ))}
             </ExperimentalNumeralRow>
             <ExperimentalNumeralRow>
-              {["L", "C", "D", "M"].map((numeral, index) =>
-                NumeralButton(numeral, index)
-              )}
+              {["L", "C", "D", "M"].map((numeral, index) => (
+                <NumeralButton
+                  key={numeral}
+                  index={index}
+                  vibrate={vibrate}
+                  operationMode={operationMode}
+                  setFirst={setFirst}
+                  first={first}
+                  setSecond={setSecond}
+                  second={second}
+                />
+              ))}
             </ExperimentalNumeralRow>
           </ExperimentalNumeralButtonsContainer>
 
@@ -881,14 +620,41 @@ function App() {
       <RootButtonsContainer>
         <MainButtonsContainer>
           <EditOperationButtonsContainer>
-            {ClearButton()}
-            {BackspaceButton()}
+            <ClearButton
+              theme={theme}
+              vibrate={vibrate}
+              setError={setError}
+              first={first}
+              second={second}
+              setPreviousOperation={setPreviousOperation}
+              operationMode={operationMode}
+              setFirst={setFirst}
+              setSecond={setSecond}
+            />
+            <BackspaceButton
+              theme={theme}
+              operationMode={operationMode}
+              first={first}
+              second={second}
+              vibrate={vibrate}
+              setFirst={setFirst}
+              setSecond={setSecond}
+            />
           </EditOperationButtonsContainer>
 
           <NumeralButtonsContainer>
-            {Object.keys(NUMERALS).map((numeral, index) =>
-              NumeralButton(numeral, index)
-            )}
+            {Object.keys(NUMERALS).map((numeral, index) => (
+              <NumeralButton
+                key={numeral}
+                index={index}
+                vibrate={vibrate}
+                operationMode={operationMode}
+                setFirst={setFirst}
+                first={first}
+                setSecond={setSecond}
+                second={second}
+              />
+            ))}
           </NumeralButtonsContainer>
         </MainButtonsContainer>
 
