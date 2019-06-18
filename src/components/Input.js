@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-
-import { mq } from "../data/breakpoints";
+import UserInterface from "../data/UserInterface";
 
 const Input = styled.input`
   display: block;
@@ -12,13 +11,13 @@ const Input = styled.input`
   padding: 2rem;
   padding-top: 4rem;
 
-  ${mq[0]} {
+  ${UserInterface.mq[0]} {
     font-size: calc(5rem / 1);
     padding: calc(2rem / 1);
     padding-top: calc(4rem / 1);
   }
 
-  ${mq[1]} {
+  ${UserInterface.mq[1]} {
     font-size: calc(5rem / 1.4);
     padding: calc(2rem / 1.4);
     padding-top: calc(4rem / 1.4);

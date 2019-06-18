@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import BUTTON_TYPES from "../data/BUTTON_TYPES";
-import { mq } from "../data/breakpoints";
+import UserInterface from "../data/UserInterface";
 
 const Button = styled.button`
 border: none;
@@ -35,7 +35,7 @@ font-size: ${props => {
   return `4rem`;
 }};
 
-${mq[0]} {
+${UserInterface.mq[0]} {
   font-size: ${props => {
     if (props.buttonType === BUTTON_TYPES.OPERATION) {
       return `calc(4rem / 2)`;
@@ -45,7 +45,7 @@ ${mq[0]} {
   }};
 }
 
-${mq[1]} {
+${UserInterface.mq[1]} {
   font-size: ${props => {
     if (props.buttonType === BUTTON_TYPES.OPERATION) {
       return `calc(4rem / 3)`;
