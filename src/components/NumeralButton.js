@@ -22,7 +22,6 @@ function NumeralButton({
       <Button
         id={numeral}
         tabIndex={index + 2}
-        key={numeral}
         buttonType={BUTTON_TYPES.NUMERAL}
         onClick={() => {
           vibrate();
