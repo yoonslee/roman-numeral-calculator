@@ -1,7 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-import "jest-dom/extend-expect";
 
 import App from "../../App";
 import ClearButton from "../../components/ClearButton";

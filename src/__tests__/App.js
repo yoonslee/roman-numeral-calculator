@@ -1,5 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import "jest-dom/extend-expect";
 
 import App from "../App";
 
