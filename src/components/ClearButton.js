@@ -5,6 +5,33 @@ import ExperimentalButton from "./ExperimentalButton";
 
 import UI from "../utils/UI";
 
+const handleClear = ({
+  vibrate,
+  setError,
+  first,
+  second,
+  setPreviousOperation,
+  operationMode,
+  setFirst,
+  setOperationMode,
+  setSecond
+}) => {
+  vibrate();
+  setError(false);
+
+  if (!first && !second) {
+    return setPreviousOperation();
+  } else if (first && !operationMode && !second) {
+    return setFirst("");
+  } else if (first && operationMode && !second) {
+    return setOperationMode();
+  } else if (first && !operationMode && second) {
+    // impossible
+  } else if (first && operationMode && second) {
+    return setSecond("");
+  }
+};
+
 function ClearButton({
   theme,
   vibrate,
@@ -22,22 +49,19 @@ function ClearButton({
       <Button
         buttonType={UI.BUTTON_TYPES.EDIT}
         tabIndex={0}
-        onClick={() => {
-          vibrate();
-          setError(false);
-
-          if (!first && !second) {
-            return setPreviousOperation();
-          } else if (first && !operationMode && !second) {
-            return setFirst("");
-          } else if (first && operationMode && !second) {
-            return setOperationMode();
-          } else if (first && !operationMode && second) {
-            // impossible
-          } else if (first && operationMode && second) {
-            return setSecond("");
-          }
-        }}
+        onClick={() =>
+          handleClear({
+            vibrate,
+            setError,
+            first,
+            second,
+            setPreviousOperation,
+            operationMode,
+            setFirst,
+            setOperationMode,
+            setSecond
+          })
+        }
       >
         AC
       </Button>
@@ -47,22 +71,19 @@ function ClearButton({
       <ExperimentalButton
         buttonType={UI.BUTTON_TYPES.EDIT}
         tabIndex={0}
-        onClick={() => {
-          vibrate();
-          setError(false);
-
-          if (!first && !second) {
-            return setPreviousOperation();
-          } else if (first && !operationMode && !second) {
-            return setFirst("");
-          } else if (first && operationMode && !second) {
-            return setOperationMode();
-          } else if (first && !operationMode && second) {
-            // impossible
-          } else if (first && operationMode && second) {
-            return setSecond("");
-          }
-        }}
+        onClick={() =>
+          handleClear({
+            vibrate,
+            setError,
+            first,
+            second,
+            setPreviousOperation,
+            operationMode,
+            setFirst,
+            setOperationMode,
+            setSecond
+          })
+        }
       >
         AC
       </ExperimentalButton>
