@@ -5,6 +5,23 @@ import ExperimentalButton from "./ExperimentalButton";
 
 import UI from "../utils/UI";
 
+const handleBack = ({
+  operationMode,
+  first,
+  second,
+  vibrate,
+  setFirst,
+  setSecond
+}) => {
+  vibrate();
+
+  if (!operationMode) {
+    return setFirst(first.substr(0, first.length - 1));
+  }
+
+  return setSecond(second.substr(0, second.length - 1));
+};
+
 function BackspaceButton({
   theme,
   operationMode,
@@ -25,15 +42,16 @@ function BackspaceButton({
         tabIndex={1}
         disabled={!showBackspace}
         style={{ opacity: showBackspace ? 1 : 0.4 }}
-        onClick={() => {
-          vibrate();
-
-          if (!operationMode) {
-            return setFirst(first.substr(0, first.length - 1));
-          }
-
-          return setSecond(second.substr(0, second.length - 1));
-        }}
+        onClick={() =>
+          handleBack({
+            operationMode,
+            first,
+            second,
+            vibrate,
+            setFirst,
+            setSecond
+          })
+        }
       >
         &larr;
       </Button>
@@ -45,15 +63,16 @@ function BackspaceButton({
         tabIndex={1}
         disabled={!showBackspace}
         style={{ opacity: showBackspace ? 1 : 0.4 }}
-        onClick={() => {
-          vibrate();
-
-          if (!operationMode) {
-            return setFirst(first.substr(0, first.length - 1));
-          }
-
-          return setSecond(second.substr(0, second.length - 1));
-        }}
+        onClick={() =>
+          handleBack({
+            operationMode,
+            first,
+            second,
+            vibrate,
+            setFirst,
+            setSecond
+          })
+        }
       >
         &larr;
       </ExperimentalButton>
