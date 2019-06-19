@@ -1,19 +1,14 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
-import "jest-dom/extend-expect";
+import renderer from "react-test-renderer";
 
-import ClearButton, { handleClear } from "../../components/ClearButton";
+import ClearButton from "../../components/ClearButton";
 
 describe("ClearButton component", () => {
-  test("renders without crashing", () => {
-    const { asFragment } = render(
-      <ClearButton theme="UI.THEMES_KEYS.CLASSIC" />
-    );
-    console.log(asFragment);
-    expect(asFragment()).toMatchSnapshot();
-  });
+  test("renders", () => {
+    const component = renderer.create(<ClearButton />);
 
-  test("handleClear function works", () => {
-    const {} = render;
+    let tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
   });
 });

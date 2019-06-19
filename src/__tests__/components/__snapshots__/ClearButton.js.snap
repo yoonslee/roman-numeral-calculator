@@ -1,12 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ClearButton component renders without crashing 1`] = `
-<DocumentFragment>
-  <button
-    class="css-1p3tv29"
-    tabindex="0"
-  >
-    AC
-  </button>
-</DocumentFragment>
+exports[`ClearButton component renders 1`] = `
+<button
+  className="css-1p3tv29"
+  onClick={[Function]}
+  tabIndex={0}
+>
+  AC
+</button>
 `;
