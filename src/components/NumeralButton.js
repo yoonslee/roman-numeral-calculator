@@ -5,6 +5,24 @@ import ExperimentalButton from "./ExperimentalButton";
 
 import UI from "../utils/UI";
 
+const handleNumeral = ({
+  numeral,
+  index,
+  vibrate,
+  operationMode,
+  setFirst,
+  first,
+  setSecond,
+  second
+}) => {
+  vibrate();
+  // console.log(numeral, NUMERALS[numeral].value);
+
+  if (!operationMode) return setFirst(`${first}${numeral}`);
+
+  return setSecond(`${second}${numeral}`);
+};
+
 function NumeralButton({
   theme,
   numeral,
@@ -22,14 +40,18 @@ function NumeralButton({
         id={numeral}
         tabIndex={index + 2}
         buttonType={UI.BUTTON_TYPES.NUMERAL}
-        onClick={() => {
-          vibrate();
-          // console.log(numeral, NUMERALS[numeral].value);
-
-          if (!operationMode) return setFirst(`${first}${numeral}`);
-
-          return setSecond(`${second}${numeral}`);
-        }}
+        onClick={() =>
+          handleNumeral({
+            numeral,
+            index,
+            vibrate,
+            operationMode,
+            setFirst,
+            first,
+            setSecond,
+            second
+          })
+        }
       >
         {numeral}
       </Button>
@@ -41,14 +63,18 @@ function NumeralButton({
         tabIndex={index + 2}
         key={numeral}
         buttonType={UI.BUTTON_TYPES.NUMERAL}
-        onClick={() => {
-          vibrate();
-          // console.log(numeral, NUMERALS[numeral].value);
-
-          if (!operationMode) return setFirst(`${first}${numeral}`);
-
-          return setSecond(`${second}${numeral}`);
-        }}
+        onClick={() =>
+          handleNumeral({
+            numeral,
+            index,
+            vibrate,
+            operationMode,
+            setFirst,
+            first,
+            setSecond,
+            second
+          })
+        }
       >
         {numeral}
       </ExperimentalButton>
