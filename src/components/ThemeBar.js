@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
+import startCase from "lodash/startCase";
+import lowerCase from "lodash/lowerCase";
 
 import UI from "../utils/UI";
 
@@ -26,18 +28,15 @@ const ThemeButton = styled.button`
 function ThemeBar({ theme, setTheme }) {
   return (
     <ThemeBarContainer>
-      <ThemeButton
-        onClick={() => setTheme(UI.THEMES_KEYS.CLASSIC)}
-        active={theme === UI.THEMES_KEYS.CLASSIC}
-      >
-        Classic
-      </ThemeButton>
-      <ThemeButton
-        onClick={() => setTheme(UI.THEMES_KEYS.EXPERIMENTAL)}
-        active={theme === UI.THEMES_KEYS.EXPERIMENTAL}
-      >
-        Experimental
-      </ThemeButton>
+      {Object.keys(UI.THEMES_KEYS).map(themeKey => (
+        <ThemeButton
+          key={themeKey}
+          onClick={() => setTheme(themeKey)}
+          active={theme === themeKey}
+        >
+          {startCase(lowerCase(themeKey))}
+        </ThemeButton>
+      ))}
     </ThemeBarContainer>
   );
 }
