@@ -26,10 +26,12 @@ import OPERATIONS, { OPERATIONS_KEYS } from "./data/OPERATIONS";
 import UI from "./utils/UI";
 import convert from "./utils/convert";
 
-function App() {
-  const [first, setFirst] = useState("");
-  const [second, setSecond] = useState("");
-  const [operationMode, setOperationMode] = useState();
+function App(props) {
+  const [first, setFirst] = useState(props.first || "");
+  const [second, setSecond] = useState(props.second || "");
+  const [operationMode, setOperationMode] = useState(
+    props.operationMode || undefined
+  );
   const [previousOperation, setPreviousOperation] = useState();
   const [hasError, setError] = useState(false);
   const [theme, setTheme] = useState(UI.THEMES_KEYS.EXPERIMENTAL);
@@ -47,9 +49,9 @@ function App() {
               previousOperation={previousOperation}
             />
             {!operationMode || operationMode === OPERATIONS_KEYS.EQUALS ? (
-              <ExperimentalInput value={first} readOnly />
+              <ExperimentalInput data-testid="input" value={first} readOnly />
             ) : (
-              <ExperimentalInput value={second} readOnly />
+              <ExperimentalInput data-testid="input" value={second} readOnly />
             )}
           </ExperimentalInputContainer>
 
@@ -63,6 +65,7 @@ function App() {
               setPreviousOperation={setPreviousOperation}
               operationMode={operationMode}
               setFirst={setFirst}
+              setOperationMode={setOperationMode}
               setSecond={setSecond}
             />
             <BackspaceButton
@@ -142,9 +145,9 @@ function App() {
   return (
     <RootContainer>
       {!operationMode || operationMode === OPERATIONS_KEYS.EQUALS ? (
-        <Input value={first} readOnly />
+        <Input data-testid="input" value={first} readOnly />
       ) : (
-        <Input value={second} readOnly />
+        <Input data-testid="input" value={second} readOnly />
       )}
 
       <RootButtonsContainer>
@@ -159,6 +162,7 @@ function App() {
               setPreviousOperation={setPreviousOperation}
               operationMode={operationMode}
               setFirst={setFirst}
+              setOperationMode={setOperationMode}
               setSecond={setSecond}
             />
             <BackspaceButton

@@ -53,6 +53,7 @@ exports[`App.js renders 1`] = `
       </svg>
       <input
         className="css-1kj977d"
+        data-testid="input"
         readOnly={true}
         value=""
       />
