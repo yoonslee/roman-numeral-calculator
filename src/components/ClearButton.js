@@ -44,29 +44,7 @@ function ClearButton({
   setOperationMode,
   setSecond
 }) {
-  if (theme === UI.THEMES_KEYS.CLASSIC) {
-    return (
-      <Button
-        buttonType={UI.BUTTON_TYPES.EDIT}
-        tabIndex={0}
-        onClick={() =>
-          handleClear({
-            vibrate,
-            setError,
-            first,
-            second,
-            setPreviousOperation,
-            operationMode,
-            setFirst,
-            setOperationMode,
-            setSecond
-          })
-        }
-      >
-        AC
-      </Button>
-    );
-  } else if (theme === UI.THEMES_KEYS.EXPERIMENTAL) {
+  if (theme === UI.THEMES_KEYS.EXPERIMENTAL) {
     return (
       <ExperimentalButton
         buttonType={UI.BUTTON_TYPES.EDIT}
@@ -89,7 +67,28 @@ function ClearButton({
       </ExperimentalButton>
     );
   }
-  return null;
+
+  return (
+    <Button
+      buttonType={UI.BUTTON_TYPES.EDIT}
+      tabIndex={0}
+      onClick={() =>
+        handleClear({
+          vibrate,
+          setError,
+          first,
+          second,
+          setPreviousOperation,
+          operationMode,
+          setFirst,
+          setOperationMode,
+          setSecond
+        })
+      }
+    >
+      AC
+    </Button>
+  );
 }
 
 export default ClearButton;
