@@ -7,7 +7,6 @@ import UI from "../utils/UI";
 
 export const handleNumeral = ({
   numeral,
-  index,
   vibrate,
   operationMode,
   setFirst,
@@ -43,7 +42,6 @@ function NumeralButton({
         onClick={() =>
           handleNumeral({
             numeral,
-            index,
             vibrate,
             operationMode,
             setFirst,
@@ -66,7 +64,6 @@ function NumeralButton({
         onClick={() =>
           handleNumeral({
             numeral,
-            index,
             vibrate,
             operationMode,
             setFirst,
