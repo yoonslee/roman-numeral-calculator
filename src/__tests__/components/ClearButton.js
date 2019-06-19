@@ -29,94 +29,94 @@ describe("ClearButton component", () => {
 
     expect(tree).toMatchSnapshot();
   });
+});
 
-  // testing >9 different combinations of empty/non-empty (1) first numeral value, (2) second numeral value, and (3) operation mode, ignoring impossible cases
-  describe("handleClear clears text", () => {
-    afterEach(cleanup);
+// testing >9 different combinations of empty/non-empty (1) first numeral value, (2) second numeral value, and (3) operation mode, ignoring impossible cases
+describe("handleClear clears text", () => {
+  afterEach(cleanup);
 
-    test("empty first value, empty second value, empty operation mode", () => {
-      const { getByTestId, getByText } = render(<App />);
+  test("empty first value, empty second value, empty operation mode", () => {
+    const { getByTestId, getByText } = render(<App />);
 
-      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
-        getByTestId,
-        getByText
-      });
-
-      // empty string because anticipating second numeral
-      expect(valueBefore).toBe("");
-      // first numeral shows, waiting for operation selection
-      expect(valueAfter).toBe("");
+    const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+      getByTestId,
+      getByText
     });
 
-    test("non-empty first value, empty second value, non-empty operation mode", () => {
-      const initialFirst = "X";
+    // empty string because anticipating second numeral
+    expect(valueBefore).toBe("");
+    // first numeral shows, waiting for operation selection
+    expect(valueAfter).toBe("");
+  });
 
-      const { getByTestId, getByText } = render(
-        <App first={initialFirst} operationMode="ADD" />
-      );
+  test("non-empty first value, empty second value, non-empty operation mode", () => {
+    const initialFirst = "X";
 
-      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
-        getByTestId,
-        getByText
-      });
+    const { getByTestId, getByText } = render(
+      <App first={initialFirst} operationMode="ADD" />
+    );
 
-      // empty string because anticipating second numeral
-      expect(valueBefore).toBe("");
-      // first numeral shows, waiting for operation selection
-      expect(valueAfter).toBe(initialFirst);
+    const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+      getByTestId,
+      getByText
     });
 
-    test("non-empty first value, empty second value, empty operation mode", () => {
-      const initialFirst = "X";
+    // empty string because anticipating second numeral
+    expect(valueBefore).toBe("");
+    // first numeral shows, waiting for operation selection
+    expect(valueAfter).toBe(initialFirst);
+  });
 
-      const { getByTestId, getByText } = render(<App first={initialFirst} />);
+  test("non-empty first value, empty second value, empty operation mode", () => {
+    const initialFirst = "X";
 
-      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
-        getByTestId,
-        getByText
-      });
+    const { getByTestId, getByText } = render(<App first={initialFirst} />);
 
-      // first numeral shows, waiting for operation selection
-      expect(valueBefore).toBe(initialFirst);
-      // empty string, waiting for first numeral
-      expect(valueAfter).toBe("");
+    const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+      getByTestId,
+      getByText
     });
 
-    test("non-empty first value, non-empty second value, operation mode", () => {
-      const initialFirst = "X";
-      const initialSecond = "XX";
+    // first numeral shows, waiting for operation selection
+    expect(valueBefore).toBe(initialFirst);
+    // empty string, waiting for first numeral
+    expect(valueAfter).toBe("");
+  });
 
-      const { getByTestId, getByText } = render(
-        <App first={initialFirst} second={initialSecond} operationMode="ADD" />
-      );
+  test("non-empty first value, non-empty second value, operation mode", () => {
+    const initialFirst = "X";
+    const initialSecond = "XX";
 
-      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
-        getByTestId,
-        getByText
-      });
+    const { getByTestId, getByText } = render(
+      <App first={initialFirst} second={initialSecond} operationMode="ADD" />
+    );
 
-      // second numeral shows, waiting for equals operation
-      expect(valueBefore).toBe(initialSecond);
-      // empty string, waiting for second numeral
-      expect(valueAfter).toBe("");
+    const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+      getByTestId,
+      getByText
     });
 
-    test("non-empty first value, empty second value, equals operation mode", () => {
-      const initialFirst = "X";
+    // second numeral shows, waiting for equals operation
+    expect(valueBefore).toBe(initialSecond);
+    // empty string, waiting for second numeral
+    expect(valueAfter).toBe("");
+  });
 
-      const { getByTestId, getByText } = render(
-        <App first={initialFirst} operationMode="EQUALS" />
-      );
+  test("non-empty first value, empty second value, equals operation mode", () => {
+    const initialFirst = "X";
 
-      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
-        getByTestId,
-        getByText
-      });
+    const { getByTestId, getByText } = render(
+      <App first={initialFirst} operationMode="EQUALS" />
+    );
 
-      // first numeral shows, waiting for next operation selection
-      expect(valueBefore).toBe(initialFirst);
-      // after the handleClear, first numeral still shows but is editable, allowing user to input append to the first numeral
-      expect(valueAfter).toBe(initialFirst);
+    const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+      getByTestId,
+      getByText
     });
+
+    // first numeral shows, waiting for next operation selection
+    expect(valueBefore).toBe(initialFirst);
+    // after the handleClear, first numeral still shows but is editable, allowing user to input append to the first numeral
+    expect(valueAfter).toBe(initialFirst);
   });
 });
