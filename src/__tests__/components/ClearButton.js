@@ -5,6 +5,22 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import App from "../../App";
 import ClearButton from "../../components/ClearButton";
 
+const getBeforeAndAfterInputValues = ({ getByTestId, getByText }) => {
+  // grab input
+  const input = getByTestId("input");
+
+  // get value of input
+  const valueBefore = input.value;
+
+  // click the handleClear button
+  fireEvent.click(getByText(/AC/));
+
+  // expect there to be an empty value in input
+  const valueAfter = input.value;
+
+  return { valueBefore, valueAfter };
+};
+
 describe("ClearButton component", () => {
   test("renders", () => {
     const component = renderer.create(<ClearButton />);
@@ -21,17 +37,10 @@ describe("ClearButton component", () => {
     test("empty first value, empty second value, empty operation mode", () => {
       const { getByTestId, getByText } = render(<App />);
 
-      // grab input
-      const input = getByTestId("input");
-
-      // get value of input
-      const valueBefore = input.value;
-
-      // click the handleClear button
-      fireEvent.click(getByText(/AC/));
-
-      // expect there to be an empty value in input
-      const valueAfter = input.value;
+      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+        getByTestId,
+        getByText
+      });
 
       // empty string because anticipating second numeral
       expect(valueBefore).toBe("");
@@ -46,17 +55,10 @@ describe("ClearButton component", () => {
         <App first={initialFirst} operationMode="ADD" />
       );
 
-      // grab input
-      const input = getByTestId("input");
-
-      // get value of input
-      const valueBefore = input.value;
-
-      // click the handleClear button
-      fireEvent.click(getByText(/AC/));
-
-      // expect there to be an empty value in input
-      const valueAfter = input.value;
+      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+        getByTestId,
+        getByText
+      });
 
       // empty string because anticipating second numeral
       expect(valueBefore).toBe("");
@@ -69,17 +71,10 @@ describe("ClearButton component", () => {
 
       const { getByTestId, getByText } = render(<App first={initialFirst} />);
 
-      // grab input
-      const input = getByTestId("input");
-
-      // get value of input
-      const valueBefore = input.value;
-
-      // click the handleClear button
-      fireEvent.click(getByText(/AC/));
-
-      // expect there to be an empty value in input
-      const valueAfter = input.value;
+      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+        getByTestId,
+        getByText
+      });
 
       // first numeral shows, waiting for operation selection
       expect(valueBefore).toBe(initialFirst);
@@ -95,17 +90,10 @@ describe("ClearButton component", () => {
         <App first={initialFirst} second={initialSecond} operationMode="ADD" />
       );
 
-      // grab input
-      const input = getByTestId("input");
-
-      // get value of input
-      const valueBefore = input.value;
-
-      // click the handleClear button
-      fireEvent.click(getByText(/AC/));
-
-      // expect there to be an empty value in input
-      const valueAfter = input.value;
+      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+        getByTestId,
+        getByText
+      });
 
       // second numeral shows, waiting for equals operation
       expect(valueBefore).toBe(initialSecond);
@@ -120,17 +108,10 @@ describe("ClearButton component", () => {
         <App first={initialFirst} operationMode="EQUALS" />
       );
 
-      // grab input
-      const input = getByTestId("input");
-
-      // get value of input
-      const valueBefore = input.value;
-
-      // click the handleClear button
-      fireEvent.click(getByText(/AC/));
-
-      // expect there to be an empty value in input
-      const valueAfter = input.value;
+      const { valueBefore, valueAfter } = getBeforeAndAfterInputValues({
+        getByTestId,
+        getByText
+      });
 
       // first numeral shows, waiting for next operation selection
       expect(valueBefore).toBe(initialFirst);
