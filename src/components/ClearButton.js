@@ -5,7 +5,7 @@ import ExperimentalButton from "./ExperimentalButton";
 
 import UI from "../utils/UI";
 
-const handleClear = ({
+export const handleClear = ({
   vibrate,
   setError,
   first,

@@ -5,7 +5,7 @@ import ExperimentalButton from "./ExperimentalButton";
 
 import UI from "../utils/UI";
 
-const handleNumeral = ({
+export const handleNumeral = ({
   numeral,
   index,
   vibrate,

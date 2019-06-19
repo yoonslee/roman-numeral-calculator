@@ -7,7 +7,7 @@ import UI from "../utils/UI";
 
 import OPERATIONS, { OPERATIONS_KEYS } from "../data/OPERATIONS";
 
-const handleOperation = ({
+export const handleOperation = ({
   opKey,
   operationMode,
   vibrate,
